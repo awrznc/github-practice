@@ -1,9 +1,6 @@
 name: BuildSample
 
-on:
-  push: '*'
-  repository_dispatch:
-    types: [build]
+on: [push, repository_dispatch]
 
 jobs:
   hello_world_job:
