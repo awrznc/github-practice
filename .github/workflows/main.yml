@@ -54,4 +54,7 @@ jobs:
         run: echo "The time was ${{ steps.hello.outputs.time }}"
 
       - name: Get github info
-        run: echo "${{ toJSON(github.event.client_payload) }}"
+        run: echo "${{ toJSON(github.event.client_payload.echo_string) }}"
+
+      - name: Get github info
+        run: echo_string="${{ toJSON(github.event.deployment.echo_string) }}" && test "$echo_string" == "null" && echo null || echo "desk is $echo_string"
