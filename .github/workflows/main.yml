@@ -1,0 +1,48 @@
+# name: Example workflow
+
+# # on: [push, deployment, repository_dispatch]
+# on: repository_dispatch
+  
+
+# jobs:
+#   hello_world_job:
+#     runs-on: ubuntu-latest
+#     name: A job to say hello
+#     steps:
+
+#     - name: Build Step
+#       id: hello
+#       uses: actions/hello-world-docker-action@v1
+#       with:
+#         who-to-greet: 'Mona the Octocat'
+
+#     - name: Test Step
+#       run: echo "The time was ${{ steps.hello.outputs.time }}"
+
+#     - name: Upload Step
+#       run: echo "The time was ${{ steps.hello.outputs.time }}"
+
+#     - name: Get github info
+#       run: echo "${{ toJSON(github.event) }}"
+
+#     - name: Get github info
+#       run: test "${{ toJSON(github.event.deployment.description) }}" == "null" && echo null || echo "desk is ${{ toJSON(github.event.deployment.description) }}"
+
+name: Sample
+
+on:
+  push:
+  repository_dispatch:
+    types: [hoge]
+jobs:
+  hoge:
+    runs-on: ubuntu-latest
+    name: hoge
+    steps:
+      - uses: actions/checkout@master
+      - if: github.event.client_payload
+        uses: actions/checkout@master
+        with:
+          ref: ${{ github.event.client_payload.ref }}
+      - name: Get github info
+        run: echo "${{ toJSON(github.event) }}"
