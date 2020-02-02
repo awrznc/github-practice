@@ -46,6 +46,7 @@ jobs:
           ref: ${{ github.event.client_payload.ref }}
 
       - name: Build Step
+        uses: actions/hello-world-docker-action@v1
         with:
           who-to-greet: 'HogeHoge'
 
