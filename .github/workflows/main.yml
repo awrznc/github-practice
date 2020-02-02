@@ -1,11 +1,7 @@
-name: BuildSample
+name: Example workflow
 
-on:
-  repository_dispatch:
-    types: [build]
-  push:
-    branches:
-      - add/github_actions
+on: [push, repository_dispatch]
+  
 
 jobs:
   hello_world_job:
