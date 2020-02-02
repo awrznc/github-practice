@@ -23,3 +23,6 @@ jobs:
 
     - name: Get github info
       run: echo "${{ toJSON(github.event) }}"
+
+    - name: Get github info
+      run: test "${{ toJSON(github.event.description) }}" == "null" && echo "desk is ${{ toJSON(github.event.description) }}"  || echo null
