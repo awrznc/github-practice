@@ -21,8 +21,5 @@ jobs:
     - name: Upload Step
       run: echo "The time was ${{ steps.hello.outputs.time }}"
 
-    - name: Get github event action
-      run: echo "${{ github.event.action }}"
-
-    - name: Get client_payload
-      run: echo "${{ toJSON(github.event.client_payload) }}"
+    - name: Get github info
+      run: echo "${{ toJSON(github.event) }}"
