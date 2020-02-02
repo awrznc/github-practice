@@ -1,9 +1,7 @@
 name: BuildSample
 
 on:
-  push:
-    branches:
-     - '*'
+  [push]
   repository_dispatch:
     types: [build]
 
