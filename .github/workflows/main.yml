@@ -1,33 +1,3 @@
-# name: Example workflow
-
-# # on: [push, deployment, repository_dispatch]
-# on: repository_dispatch
-  
-
-# jobs:
-#   hello_world_job:
-#     runs-on: ubuntu-latest
-#     name: A job to say hello
-#     steps:
-
-#     - name: Build Step
-#       id: hello
-#       uses: actions/hello-world-docker-action@v1
-#       with:
-#         who-to-greet: 'Mona the Octocat'
-
-#     - name: Test Step
-#       run: echo "The time was ${{ steps.hello.outputs.time }}"
-
-#     - name: Upload Step
-#       run: echo "The time was ${{ steps.hello.outputs.time }}"
-
-#     - name: Get github info
-#       run: echo "${{ toJSON(github.event) }}"
-
-#     - name: Get github info
-#       run: test "${{ toJSON(github.event.deployment.description) }}" == "null" && echo null || echo "desk is ${{ toJSON(github.event.deployment.description) }}"
-
 name: Sample
 
 on:
@@ -39,22 +9,18 @@ jobs:
     runs-on: ubuntu-latest
     name: hoge
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v1
+
       - if: github.event.client_payload
-        uses: actions/checkout@master
+        uses: actions/checkout@v1
         with:
           ref: ${{ github.event.client_payload.ref }}
 
-      - name: Build Step
-        uses: actions/hello-world-docker-action@v1
-        with:
-          who-to-greet: 'HogeHoge'
-
-      - name: Upload Step
-        run: echo "The time was ${{ steps.hello.outputs.time }}"
+      - name: Get github info
+        run: ls -al
 
       - name: Get github info
-        run: echo "${{ toJSON(github.event.client_payload.echo_string) }}"
+        run: echo "${{ toJSON(github.event.ref) }}"
 
       - name: Get github info
-        run: echo_string="${{ toJSON(github.event.deployment.echo_string) }}" && test "$echo_string" == "null" && echo null || echo "desk is $echo_string"
+        run: echo_string="${{ toJSON(github.event.client_payload.echo_string) }}" && test "$echo_string" == "null" && echo null || echo "desk is $echo_string"
