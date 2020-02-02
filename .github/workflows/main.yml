@@ -44,5 +44,13 @@ jobs:
         uses: actions/checkout@master
         with:
           ref: ${{ github.event.client_payload.ref }}
+
+      - name: Build Step
+        with:
+          who-to-greet: 'HogeHoge'
+
+      - name: Upload Step
+        run: echo "The time was ${{ steps.hello.outputs.time }}"
+
       - name: Get github info
-        run: echo "${{ toJSON(github.event) }}"
+        run: echo "${{ toJSON(github.event.client_payload) }}"
