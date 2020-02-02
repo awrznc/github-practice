@@ -1,6 +1,11 @@
-name: CI
+name: BuildSample
 
-on: [push]
+on:
+  push:
+    branches:
+     - '*'
+  repository_dispatch:
+    types: [build]
 
 jobs:
   hello_world_job:
