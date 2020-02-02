@@ -1,6 +1,11 @@
 name: BuildSample
 
-on: [push, repository_dispatch]
+on:
+  repository_dispatch:
+    types: [build]
+  push:
+    branches:
+      - master
 
 jobs:
   hello_world_job:
