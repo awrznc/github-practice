@@ -1,6 +1,6 @@
 name: Example workflow
 
-on: [push, repository_dispatch]
+on: [push, deployment]
   
 
 jobs:
