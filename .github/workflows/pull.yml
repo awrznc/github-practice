@@ -8,11 +8,11 @@ jobs:
   sample_job:
     runs-on: ubuntu-latest
     container:
-      image: centos:latest
+      image: docker.pkg.github.com/awrznc/github-practice/sample:test-${{ secrets.GITHUB_TOKEN }}
     name: sample_job
     steps:
       - uses: actions/checkout@v1
 
       # echo_string
-      - name: dnf --version
-        run: dnf --version
+      - name: apt-get --version
+        run: apt-get --version
