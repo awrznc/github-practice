@@ -2,7 +2,7 @@ name: Update_DockerImage
 
 on:
   push:
-    # paths: 'Dockerfile'
+    paths: 'Dockerfile'
 
 env:
     DOCKER_BUILDKIT: 1
