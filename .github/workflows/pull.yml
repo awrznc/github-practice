@@ -1,0 +1,16 @@
+# Actionの名前
+name: Pull
+
+on:
+  push:
+
+jobs:
+  sample_job:
+    runs-on: docker.pkg.github.com/awrznc/github-practice/sample:test
+    name: sample_job
+    steps:
+      - uses: actions/checkout@v1
+
+      # echo_string
+      - name: apt-get --version
+        run: apt-get --version
