@@ -21,5 +21,5 @@ jobs:
       - name: Publish docker image
         run: |
             docker login -u $USER_NAME -p ${{ secrets.GITHUB_TOKEN }} $DOMAIN
-            docker build -t $DOMAIN/$USER_NAME/$REPO_NAME/$PKG_PATH:$IMAGE_TAG --file Dockerfile .
-            docker push     $DOMAIN/$USER_NAME/$REPO_NAME/$PKG_PATH:$IMAGE_TAG
+            docker build -t $DOMAIN/$USER_NAME/$REPO_NAME/$IMAGE_NAME:$IMAGE_TAG --file Dockerfile .
+            docker push     $DOMAIN/$USER_NAME/$REPO_NAME/$IMAGE_NAME:$IMAGE_TAG
