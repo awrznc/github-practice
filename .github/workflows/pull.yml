@@ -1,0 +1,19 @@
+# Actionの名前
+name: Pull
+
+on:
+  push:
+
+jobs:
+  sample_job:
+    runs-on: ubuntu-latest
+    container:
+        using: 'docker'
+        image: Dockerfile
+    name: sample_job
+    steps:
+      - uses: actions/checkout@v1
+
+      # echo_string
+      - name: apt-get --version
+        run: apt-get --version

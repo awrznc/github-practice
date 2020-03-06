@@ -1,0 +1,23 @@
+name: Update_DockerImage
+
+on:
+  push:
+    paths: 'Dockerfile'
+
+env:
+    DOCKER_BUILDKIT: 1
+    DOMAIN: docker.pkg.github.com
+    IMAGE_NAME: sample
+    IMAGE_TAG: test
+
+jobs:
+  sample_job:
+    runs-on: ubuntu-latest
+    name: sample_job
+    steps:
+      - uses: actions/checkout@v1
+      - name: Publish docker image
+        run: |
+            docker login -u $GITHUB_ACTOR -p ${{ secrets.GITHUB_TOKEN }} $DOMAIN
+            docker build -t $DOMAIN/$GITHUB_REPOSITORY/$IMAGE_NAME:$IMAGE_TAG --file Dockerfile .
+            docker push     $DOMAIN/$GITHUB_REPOSITORY/$IMAGE_NAME:$IMAGE_TAG
