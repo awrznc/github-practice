@@ -29,6 +29,8 @@ jobs:
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
 
+    - name: check
+      run: vswhere -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
     - name: Build
       run: |
         CL .\main.c gdi32.lib /link /OUT:dtan.exe
