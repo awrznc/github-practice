@@ -28,8 +28,7 @@ jobs:
 
     - name: Build
       run: |
-        mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && cmake --build .
-        ls
+        mkdir -p build && cd build && cmake .. && cmake --build . --config Release
 
     - name: Archive code coverage results
       uses: actions/upload-artifact@v2
