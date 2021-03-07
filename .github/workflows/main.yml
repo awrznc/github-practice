@@ -12,13 +12,11 @@ jobs:
     - name: Build
       run: |
         mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && cmake --build .
-    # bash -c "echo ARCHIVE_PATH=$(find ./bin -name 'sample' -or -name 'sample.exe')  >> $GITHUB_ENV"
-    # echo ${ARCHIVE_PATH}
 
     - name: Archive code coverage results
       uses: actions/upload-artifact@v2
       with:
-        name: bin
+        name: macos_bin
         path: ./build/bin/sample
 
   windows_build:
@@ -31,11 +29,10 @@ jobs:
     - name: Build
       run: |
         mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && cmake --build .
-    # bash -c "echo ARCHIVE_PATH=$(find ./bin -name 'sample' -or -name 'sample.exe')  >> $GITHUB_ENV"
-    # echo ${ARCHIVE_PATH}
+        ls
 
     - name: Archive code coverage results
       uses: actions/upload-artifact@v2
       with:
-        name: bin
+        name: windows_bin
         path: ./build/bin/Release/sample.exe
