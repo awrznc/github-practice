@@ -2,11 +2,8 @@ name: Run tests on multi environment
 
 on: push
 jobs:
-  build:
-    strategy:
-      matrix:
-        platform: [macos-latest, windows-latest]
-    runs-on: ${{ matrix.platform }}
+  macos_build:
+    runs-on: macos-latest
     steps:
 
     - name: Checkout code
@@ -14,13 +11,31 @@ jobs:
 
     - name: Build
       run: |
-        mkdir -p build && cd build
-        cmake .. && cmake --build .
-        bash -c "echo ARCHIVE_PATH=$(find ./bin -name 'sample' -or -name 'sample.exe')  >> $GITHUB_ENV"
-        echo ${ARCHIVE_PATH}
+        mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && cmake --build .
+    # bash -c "echo ARCHIVE_PATH=$(find ./bin -name 'sample' -or -name 'sample.exe')  >> $GITHUB_ENV"
+    # echo ${ARCHIVE_PATH}
 
     - name: Archive code coverage results
       uses: actions/upload-artifact@v2
       with:
-        name: code-coverage-report
-        path: ${env.ARCHIVE_PATH}
+        name: bin
+        path: ./bin/sample
+
+  windows_build:
+    runs-on: windows-latest
+    steps:
+
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build
+      run: |
+        mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && cmake --build .
+    # bash -c "echo ARCHIVE_PATH=$(find ./bin -name 'sample' -or -name 'sample.exe')  >> $GITHUB_ENV"
+    # echo ${ARCHIVE_PATH}
+
+    - name: Archive code coverage results
+      uses: actions/upload-artifact@v2
+      with:
+        name: bin
+        path: ./bin/Release/sample.exe
