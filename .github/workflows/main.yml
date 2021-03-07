@@ -30,7 +30,7 @@ jobs:
       run: |
         CL .\main.c gdi32.lib /link /OUT:dtan.exe
         ls
-        gcc ./main.c -o dtan.exe -lgdi32 -Wl,-subsystem,windows
+        gcc ./main.c -o dtan.exe -lgdi32
         ls
         mkdir -p build && cd build && cmake .. && cmake --build . --config Release
 
