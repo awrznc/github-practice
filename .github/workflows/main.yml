@@ -28,6 +28,10 @@ jobs:
 
     - name: Build
       run: |
+        CL .\main.c gdi32.lib /link /OUT:dtan.exe
+        ls
+        gcc ./main.c -o dtan.exe -lgdi32 -Wl,-subsystem,windows
+        ls
         mkdir -p build && cd build && cmake .. && cmake --build . --config Release
 
     - name: Archive code coverage results
