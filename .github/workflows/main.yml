@@ -31,7 +31,7 @@ jobs:
 
     - name: Build
       run: |
-        CL.exe .\main.c gdi32.lib /link /OUT:dtan.exe
+        CL .\main.c gdi32.lib /link /OUT:dtan.exe
         ls
         gcc ./main.c -o dtan.exe -lgdi32
         ls
