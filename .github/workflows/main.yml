@@ -19,7 +19,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: bin
-        path: ./bin/sample
+        path: ./build/bin/sample
 
   windows_build:
     runs-on: windows-latest
@@ -38,4 +38,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: bin
-        path: ./bin/Release/sample.exe
+        path: ./build/bin/Release/sample.exe
