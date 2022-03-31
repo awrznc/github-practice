@@ -29,8 +29,6 @@ jobs:
     steps:
       - name: Download
         uses: actions/download-artifact@v3
-        with:
-          name: aaaa
 
       - name: cat txt
         run: |
