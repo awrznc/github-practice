@@ -32,5 +32,6 @@ jobs:
 
       - name: cat txt
         run: |
-          cat aaaa.txt
-          cat bbbb.txt
+          ls -al
+          cat ./aaaa/aaaa.txt
+          cat ./bbbb/bbbb.txt
