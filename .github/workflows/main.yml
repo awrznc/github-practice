@@ -1,27 +1,30 @@
-# Actionの名前
 name: Sample
-
-# Jobが実行されるトリガー
-# pushされた場合、もしくはイベント種別が「hoge」のリポジトリディスパッチイベントが作成された場合に実行する
-on:
-  push:
-  repository_dispatch:
-    types: [hoge]
+on: push
 
 jobs:
-  sample_job:
+
+  main_job:
+    defaults:
+      run:
+        working-directory: .
     runs-on: ubuntu-latest
-    name: sample_job
     steps:
-      - uses: actions/checkout@v1
+      - name: make aaaa.txt
+        run: echo aaaa > aaaa.txt
 
-      # ブランチが指定されていた場合は、指定されているブランチを利用する
-      - if: github.event.client_payload
-        uses: actions/checkout@v1
-        with:
-          ref: ${{ github.event.client_payload.ref }}
+  sub_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: make bbbb.txt
+        run: echo bbbb > bbbb.txt
 
-      # echo_string
-      - if: github.event.client_payload.echo_string
-        name: echo string
-        run: echo ${{ toJSON(github.event.client_payload.echo_string) }}
+  next_job:
+    needs:
+      - main_job
+      - sub_job
+    runs-on: ubuntu-latest
+    steps:
+      - name: cat txt
+        run: |
+          cat aaaa.txt
+          cat bbbb.txt
