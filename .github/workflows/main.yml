@@ -14,6 +14,8 @@ jobs:
           7z.exe x -oovmf ./OVMF-X64-r15214.zip
           echo (Resolve-Path ./qemu/).Path | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
           echo (Resolve-Path ./ovmf/).Path | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+      - name: check
+        run: |
           qemu-system-x86_64.exe --version
           bash -c "which OVMF.fd"
       # winget install ninja cmake qemu-system-x86 ovmf
