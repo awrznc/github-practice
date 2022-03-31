@@ -30,9 +30,7 @@ jobs:
       - name: Download
         uses: actions/download-artifact@v3
         with:
-          name:
-            - aaaa
-            - bbbb
+          name: aaaa
 
       - name: cat txt
         run: |
