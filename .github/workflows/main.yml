@@ -4,34 +4,50 @@ on: push
 jobs:
 
   main_job:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
-      - run: echo aaaa > aaaa.txt
-      - uses: actions/upload-artifact@v3
-        with:
-          name: aaaa
-          path: aaaa.txt
-
-  sub_job:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo bbbb > bbbb.txt
-      - uses: actions/upload-artifact@v3
-        with:
-          name: bbbb
-          path: bbbb.txt
-
-  next_job:
-    needs:
-      - main_job
-      - sub_job
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download
-        uses: actions/download-artifact@v3
-
-      - name: cat txt
+      - name: Install tools
         run: |
-          ls -al
-          cat ./aaaa/aaaa.txt
-          cat ./bbbb/bbbb.txt
+          bash -c 'curl -OL https://qemu.weilnetz.de/w64/2021/qemu-w64-setup-20211215.exe'
+          7z.exe x -oqemu ./qemu-w64-setup-20211215.exe
+          bash -c 'curl -OL https://jaist.dl.sourceforge.net/project/edk2/OVMF/OVMF-X64-r15214.zip'
+          7z.exe x -oovmf ./OVMF-X64-r15214.zip
+          set PATH=%PATH%;%CD%\qemu\;%CD%\ovmf\
+          qemu-system-x86_64.exe --version
+          bash -c "which OVMF.fd"
+      # winget install ninja cmake qemu-system-x86 ovmf
+
+
+
+      # - run: echo aaaa > aaaa.txt
+      # - uses: actions/upload-artifact@v3
+      #   with:
+      #     name: aaaa
+      #     path: aaaa.txt
+
+  #     - name: Initialize
+  #       uses: ./.github/actions/build
+
+  # sub_job:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - run: echo bbbb > bbbb.txt
+  #     - uses: actions/upload-artifact@v3
+  #       with:
+  #         name: bbbb
+  #         path: bbbb.txt
+
+  # next_job:
+  #   needs:
+  #     - main_job
+  #     - sub_job
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Download
+  #       uses: actions/download-artifact@v3
+
+  #     - name: cat txt
+  #       run: |
+  #         ls -al
+  #         cat ./aaaa/aaaa.txt
+  #         cat ./bbbb/bbbb.txt
