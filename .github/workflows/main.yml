@@ -12,7 +12,8 @@ jobs:
           7z.exe x -oqemu ./qemu-w64-setup-20211215.exe
           bash -c 'curl -OL https://jaist.dl.sourceforge.net/project/edk2/OVMF/OVMF-X64-r15214.zip'
           7z.exe x -oovmf ./OVMF-X64-r15214.zip
-          set PATH=%PATH%;%CD%\qemu\;%CD%\ovmf\
+          (Resolve-Path ./qemu/).Path >> $Env:GITHUB
+          (Resolve-Path ./ovmf/).Path >> $Env:GITHUB
           qemu-system-x86_64.exe --version
           bash -c "which OVMF.fd"
       # winget install ninja cmake qemu-system-x86 ovmf
