@@ -4,19 +4,22 @@ on: push
 jobs:
 
   main_job:
-    defaults:
-      run:
-        working-directory: .
     runs-on: ubuntu-latest
     steps:
-      - name: make aaaa.txt
-        run: echo aaaa > aaaa.txt
+      - run: echo aaaa > aaaa.txt
+      - uses: actions/upload-artifact@v3
+        with:
+          name: aaaa
+          path: aaaa.txt
 
   sub_job:
     runs-on: ubuntu-latest
     steps:
-      - name: make bbbb.txt
-        run: echo bbbb > bbbb.txt
+      - run: echo bbbb > bbbb.txt
+      - uses: actions/upload-artifact@v3
+        with:
+          name: bbbb
+          path: bbbb.txt
 
   next_job:
     needs:
@@ -24,6 +27,13 @@ jobs:
       - sub_job
     runs-on: ubuntu-latest
     steps:
+      - name: Download
+        uses: actions/download-artifact@v3
+        with:
+          name:
+            - aaaa
+            - bbbb
+
       - name: cat txt
         run: |
           cat aaaa.txt
